@@ -1,0 +1,46 @@
+{
+	"name": "boilerplate",
+	"version": "0.1.0",
+	"description": "boilerplate based on Lizz's NERD boilerplate",
+	"main": "index.js",
+	"scripts": {
+		"start": "node server/start.js",
+		"start:dev": "webpack -w & nodemon server/start.js"
+	},
+	"author": "ivanfex",
+	"license": "ISC",
+	"dependencies": {
+		"axios": "^0.18.0",
+		"body-parser": "^1.18.3",
+		"express": "^4.16.3",
+		"express-session": "^1.15.6",
+		"lodash": "^4.17.10",
+		"pg": "^7.4.3",
+		"react": "^16.4.0",
+		"react-dom": "^16.4.0",
+		"react-redux": "^5.0.7",
+		"react-router": "^4.2.0",
+		"react-router-dom": "^4.2.2",
+		"redux": "^4.0.0",
+		"redux-devtools-extension": "^2.13.2",
+		"redux-logger": "^3.0.6",
+		"redux-thunk": "^2.3.0",
+		"sequelize": "^4.37.10"
+	},
+	"devDependencies": {
+		"babel-core": "^6.26.3",
+		"babel-loader": "^7.1.4",
+		"babel-preset-env": "^1.7.0",
+		"babel-preset-react": "^6.24.1",
+		"babel-preset-stage-2": "^6.24.1",
+		"babel-register": "^6.26.0",
+		"chalk": "^2.4.1",
+		"css-loader": "^0.28.11",
+		"morgan": "^1.9.0",
+		"nodemon": "^1.17.5",
+		"style-loader": "^0.21.0",
+		"supertest": "^3.1.0",
+		"webpack": "^4.10.2",
+		"webpack-cli": "^2.1.4"
+	}
+}
