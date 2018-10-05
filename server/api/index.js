@@ -36,6 +36,12 @@ function sendHook(message){
 						"text": "Missed",
 						"type": "button",
 						"value": "missed"
+					},
+					{
+						"name": "assign_call",
+						"text": "Assign to...",
+						"type": "select",
+						"data_source": "users"
 					}
 				]
 			}
@@ -65,16 +71,57 @@ router.post('/', (req, res) => {
 	}
 })
 
+function actionType(actions){
+	const action = actions[0]
+	if(action.value) return action.value
+	else {
+		console.log(action)
+		const userId = action.selected_options[0].value
+		console.log('USER ID', userId)
+		return action.selected_options && action.selected_options.length ? `assigned to <@${userId}>` : ''
+	}
+}
+
 function actionResponse(message){
+	const name = message.user.name[0].toUpperCase() + message.user.name.slice(1)
+	const action = actionType(message.actions)
+
 	return {
 		attachments: [
 			{
 				text: message.original_message.attachments[0].text
 			},
 			{
-				color: '#FF0000',
-				text: message.user.name + ' marked this call as ' + message.actions[0].value
-			}
+				color: action === 'taken' ? '#78CAD2' : '#FE5F55',
+				text: name + ' marked this call as ' + action
+			},
+			action !== 'taken' ? {
+				"text": "Call state?",
+				"fallback": "The state couldn't be changed",
+				"callback_id": "call_state",
+				"color": "#3AA3E3",
+				"attachment_type": "default",
+				"actions": [
+					{
+						"name": "call_taken",
+						"text": "Taken",
+						"type": "button",
+						"value": "taken"
+					},
+					{
+						"name": "call_missed",
+						"text": "Missed",
+						"type": "button",
+						"value": "missed"
+					},
+					{
+						"name": "assign_call",
+						"text": "Assign to...",
+						"type": "select",
+						"data_source": "users"
+					}
+				]
+			} : null
 		]
 	}
 }
