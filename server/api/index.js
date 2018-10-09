@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const axios = require('axios')
 const notifier = require('mail-notifier')
+const { messageButtons } = require('./constants')
 
 const imap = {
 	user: "ninja.listener@gmail.com",
@@ -18,33 +19,7 @@ function sendHook(message){
 			{
 				text: message
 			},
-			{
-				"text": "Call state?",
-				"fallback": "The state couldn't be changed",
-				"callback_id": "call_state",
-				"color": "#3AA3E3",
-				"attachment_type": "default",
-				"actions": [
-					{
-						"name": "call_taken",
-						"text": "Taken",
-						"type": "button",
-						"value": "taken"
-					},
-					{
-						"name": "call_missed",
-						"text": "Missed",
-						"type": "button",
-						"value": "missed"
-					},
-					{
-						"name": "assign_call",
-						"text": "Assign to...",
-						"type": "select",
-						"data_source": "users"
-					}
-				]
-			}
+			messageButtons
 		]
 	})
 	.then(() => console.log('action received'))
@@ -95,33 +70,7 @@ function actionResponse(message){
 				color: action === 'taken' ? '#78CAD2' : '#FE5F55',
 				text: name + ' marked this call as ' + action
 			},
-			action !== 'taken' ? {
-				"text": "Call state?",
-				"fallback": "The state couldn't be changed",
-				"callback_id": "call_state",
-				"color": "#3AA3E3",
-				"attachment_type": "default",
-				"actions": [
-					{
-						"name": "call_taken",
-						"text": "Taken",
-						"type": "button",
-						"value": "taken"
-					},
-					{
-						"name": "call_missed",
-						"text": "Missed",
-						"type": "button",
-						"value": "missed"
-					},
-					{
-						"name": "assign_call",
-						"text": "Assign to...",
-						"type": "select",
-						"data_source": "users"
-					}
-				]
-			} : null
+			action !== 'taken' ? messageButtons : null
 		]
 	}
 }
