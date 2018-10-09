@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const messageButtons = {
 	"text": "Call state?",
 	"fallback": "The state couldn't be changed",
@@ -26,6 +28,18 @@ const messageButtons = {
 	]
 }
 
+const { GMAIL_ACC, GMAIL_PASS, IMAP_HOST } = process.env
+
+const imap = {
+	user: GMAIL_ACC,
+	password: GMAIL_PASS,
+	host: IMAP_HOST,
+	port: 993, // imap port
+	tls: true,// use secure connection
+	tlsOptions: { rejectUnauthorized: false }
+}
+
 module.exports = {
-	messageButtons
+	messageButtons,
+	imap
 }
