@@ -16,7 +16,8 @@ app.use(express.static(path.join(__dirname, '../public'))) // serve public files
 app.use('/api', require('./api')) // api router
 
 app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname, '../public/index.html'))
+	res.status(403)
+	res.send('Booking Ninja server, route not found')
 })
 
 app.use((error, req, res, next) => {
